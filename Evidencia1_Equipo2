@@ -71,12 +71,12 @@ def CrearNota():
         print(f"Total a pagar: $ {notacreada.total_nota()}")
 
 CONSULTAS Y REPORTES- ULISES----------------------------------------------------------------------------------------
-def consultar_por_fecha(notas):
-    fecha_inicial = input("Ingrese la fecha inicial (YYYY-MM-DD): ")
-    fecha_final = input("Ingrese la fecha final (YYYY-MM-DD): ")
+def consultar_por_fecha(listanotas):
+    fecha_inicial = input("Ingrese la fecha inicial (DD-MM-AAAA): ")
+    fecha_final = input("Ingrese la fecha final (DD-MM-AAAA): ")
 
-    fecha_inicial = datetime.datetime.strptime(fecha_inicial, "%Y-%m-%d").date()
-    fecha_final = datetime.datetime.strptime(fecha_final, "%Y-%m-%d").date()
+    fecha_inicial = datetime.datetime.strptime(fecha_inicial, "%d-%m-%Y").date()
+    fecha_final = datetime.datetime.strptime(fecha_final, "%d-%m-%Y").date()
 
     notas_periodo = [nota for nota in notas if fecha_inicial <= nota.fecha <= fecha_final]
 
@@ -92,7 +92,7 @@ def consultar_por_fecha(notas):
                 print(f"Servicio: {nombreservicio}\t Costo: ${costoservicio}")
             print(f"Total a pagar: $ {nota.total_nota()}")
 
-def consultar_por_folio(notas):
+def consultar_por_folio(listanotas):
     folio = input("Ingrese el folio de la nota a consultar: ")
     nota_encontrada = None
 
