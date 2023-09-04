@@ -1,4 +1,3 @@
-#REGISTRAR NOTA- IVANA------------------------------------------------------------------------------------------------
 import datetime
 
 class RegistroNota:
@@ -71,7 +70,6 @@ def CrearNota():
             print(f"Servicio: {nombreservicio}\t Costo: ${costoservicio}")
         print(f"Total a pagar: $ {notacreada.total_nota()}")
 
-#CONSULTAS Y REPORTES- ULISES----------------------------------------------------------------------------------------
 def consultar_por_fecha(listanotas):
     fecha_inicial = input("Ingrese la fecha inicial (DD-MM-AAAA): ")
     fecha_final = input("Ingrese la fecha final (DD-MM-AAAA): ")
@@ -113,7 +111,7 @@ def consultar_por_folio(listanotas):
         print(f"Total a pagar: ${nota_encontrada.total_nota()}")
     else:
         print("La nota no se encuentra en el sistema o fue cancelada.")
-#CANCELAR NOTA- LIZETH-----------------------------------------------------------------------------------------------------------------
+
 def CancelarNota(listanotas):
     try:
         folioCancelar = input("Ingrese el folio de la nota que desea cancelar o escriba 'S' para salir: ").strip()
@@ -150,8 +148,6 @@ def CancelarNota(listanotas):
     except ValueError:
         print("Ingrese un número de folio válido.")
 
-
-#RECUPERAR NOTA- ADRIAN--------------------------------------------------------------------------------------------------------
 def recuperar_nota(NotasCanceladas, listanotas):
     try:
         if not NotasCanceladas:
@@ -201,9 +197,6 @@ def recuperar_nota(NotasCanceladas, listanotas):
     except ValueError:
         print("Ingrese un número de folio válido.")
 
-
-
-#MENU Y SUBMENU-------------------------------------------------------------------------------------------------------------
 while True:
     print("\nMenú Principal:")
     print("1. Crear una nota")
