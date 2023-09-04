@@ -203,36 +203,40 @@ def recuperar_nota(NotasCanceladas, listanotas):
 
 
 MENU Y SUBMENU-------------------------------------------------------------------------------------------------------------
+while True:
+    print("\nMenú Principal:")
+    print("1. Crear una nota")
+    print("2. Consultas y Reportes")
+    print("3. Cancelar una nota")
+    print("4. Recuperar una nota")
+    print("5. Salir")
 
-if __name__ == "__main__":
-    while True:
-        print("\nMenú Principal:")
-        print("1. Crear una nota")
-        print("2. Consultas y Reportes")
-        print("3. Salir")
+    opcion_menu = input("Seleccione una opción: ")
 
-        opcion_menu = input("Seleccione una opción: ")
+    if opcion_menu == "1":
+        CrearNota()
+    elif opcion_menu == "2":
+        while True:
+            print("\nSubMenu :")
+            print("1. Consultar nota por fecha")
+            print("2. Consultar nota por folio")
+            print("3. Volver al menú principal")
 
-        if opcion_menu == "1":
-            CrearNota()
-        elif opcion_menu == "2":
-            while True:
-                print("\nSubMenu :")
-                print("1. Consultar nota por fecha")
-                print("2. Consultar nota por folio")
-                print("3. Volver al menú principal")
+            opcion_submenu = input("Seleccione una opción: ")
 
-                opcion_submenu = input("Seleccione una opción: ")
-
-                if opcion_submenu == "1":
-                    consultar_por_fecha(listanotas)
-                elif opcion_submenu == "2":
-                    consultar_por_folio(listanotas)
-                elif opcion_submenu == "3":
-                    break
-                else:
-                    print("Opción no válida.")
-        elif opcion_menu == "3":
-            break
-        else:
-            print("Opción no válida.")
+            if opcion_submenu == "1":
+                consultar_por_fecha(listanotas)
+            elif opcion_submenu == "2":
+                consultar_por_folio(listanotas)
+            elif opcion_submenu == "3":
+                break
+            else:
+                print("Opción no válida.")
+    elif opcion_menu == "3":
+        CancelarNota(listanotas)
+    elif opcion_menu == "4":
+        recuperar_nota(NotasCanceladas, listanotas)
+    elif opcion_menu == "5":
+        break
+    else:
+        print("Opción no válida.")
