@@ -1,3 +1,4 @@
+REGISTRAR NOTA- IVANA------------------------------------------------------------------------------------------------
 import datetime
 
 class RegistroNota:
@@ -69,6 +70,7 @@ def CrearNota():
             print(f"Servicio: {nombreservicio}\t Costo: ${costoservicio}")
         print(f"Total a pagar: $ {notacreada.total_nota()}")
 
+CONSULTAS Y REPORTES- ULISES----------------------------------------------------------------------------------------
 def consultar_por_fecha(notas):
     fecha_inicial = input("Ingrese la fecha inicial (YYYY-MM-DD): ")
     fecha_final = input("Ingrese la fecha final (YYYY-MM-DD): ")
@@ -110,7 +112,7 @@ def consultar_por_folio(notas):
         print(f"Total a pagar: ${nota_encontrada.total_nota()}")
     else:
         print("La nota no se encuentra en el sistema o fue cancelada.")
-
+CANCELAR NOTA- LIZETH-----------------------------------------------------------------------------------------------------------------
 def CancelarNota(listanotas):
     try:
         folioCancelar = input("Ingrese el folio de la nota que desea cancelar o escriba 'S' para salir: ").strip()
@@ -148,7 +150,59 @@ def CancelarNota(listanotas):
         print("Ingrese un número de folio válido.")
 
 
+#RECUPERAR NOTA- ADRIAN--------------------------------------------------------------------------------------------------------
+def recuperar_nota(NotasCanceladas, listanotas):
+    try:
+        if not NotasCanceladas:
+            print("No hay notas canceladas para recuperar")
+            return
 
+        print("Notas canceladas:")
+        print("Folio\tFecha\t\tNombre del Cliente")
+        for nota in NotasCanceladas:
+            print(f"{nota.folio}\t{nota.fecha}\t{nota.nombrecliente}")
+
+        folio_recuperar = input("Ingrese el folio de la nota que desea recuperar o 'S' para salir: ").strip()
+
+        if folio_recuperar.upper() == 'S':
+            print("Saliendo del servicio RecuperarNota")
+            return
+
+        folio_recuperar = int(folio_recuperar)
+        nota_recuperar = None
+
+        for nota in NotasCanceladas:
+            if nota.folio == folio_recuperar:
+                nota_recuperar = nota
+                break
+
+        if nota_recuperar:
+            print("\nDetalles de la nota a recuperar:")
+            print(f"Folio: {nota_recuperar.folio}")
+            print(f"Fecha: {nota_recuperar.fecha}")
+            print(f"Nombre del cliente: {nota_recuperar.nombrecliente}")
+            print("Servicios realizados:")
+            for nombreservicio, costoservicio in nota_recuperar.servicios.items():
+                print(f"Servicio: {nombreservicio}\t Costo: ${costoservicio}")
+            print(f"Total a pagar: $ {nota_recuperar.total_nota()}")
+
+            confirmacion = input("¿Desea recuperar esta nota? (SI/NO): ").strip().upper()
+            if confirmacion == "SI":
+                nota_recuperar.cancelada = False
+                print("Nota recuperada exitosamente.")
+                NotasCanceladas.pop(NotasCanceladas.index(nota_recuperar))
+                listanotas.append(nota_recuperar)
+            else:
+                print("La nota no ha sido recuperada.")
+        else:
+            print("El folio no se encuentra en la lista de notas canceladas.")
+
+    except ValueError:
+        print("Ingrese un número de folio válido.")
+
+
+
+MENU Y SUBMENU-------------------------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
     while True:
