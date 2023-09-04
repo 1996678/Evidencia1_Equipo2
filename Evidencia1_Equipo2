@@ -68,3 +68,78 @@ def CrearNota():
         for nombreservicio, costoservicio in notacreada.servicios.items():
             print(f"Servicio: {nombreservicio}\t Costo: ${costoservicio}")
         print(f"Total a pagar: $ {notacreada.total_nota()}")
+
+def consultar_por_fecha(notas):
+    fecha_inicial = input("Ingrese la fecha inicial (YYYY-MM-DD): ")
+    fecha_final = input("Ingrese la fecha final (YYYY-MM-DD): ")
+
+    fecha_inicial = datetime.datetime.strptime(fecha_inicial, "%Y-%m-%d").date()
+    fecha_final = datetime.datetime.strptime(fecha_final, "%Y-%m-%d").date()
+
+    notas_periodo = [nota for nota in notas if fecha_inicial <= nota.fecha <= fecha_final]
+
+    if not notas_periodo:
+        print("No hay notas emitidas para el período especificado.")
+    else:
+        print("Notas del período:")
+        for nota in notas_periodo:
+            print(f"Folio: {nota.folio}")
+            print(f"Nombre del Cliente: {nota.nombrecliente}")
+            print("Servicios realizados:")
+            for nombreservicio, costoservicio in nota.servicios.items():
+                print(f"Servicio: {nombreservicio}\t Costo: ${costoservicio}")
+            print(f"Total a pagar: $ {nota.total_nota()}")
+
+def consultar_por_folio(notas):
+    folio = input("Ingrese el folio de la nota a consultar: ")
+    nota_encontrada = None
+
+    for nota in listanotas:
+        if str(nota.folio) == folio:
+            nota_encontrada = nota
+            break
+
+    if nota_encontrada:
+        print(f"Nota encontrada:")
+        print(f"Folio: {nota_encontrada.folio}")
+        print(f"Fecha: {nota_encontrada.fecha}")
+        print(f"Nombre del cliente: {nota_encontrada.nombrecliente}")
+        print("Servicios:")
+        for nombreservicio, costoservicio in nota_encontrada.servicios.items():
+            print(f"Servicio: {nombreservicio}, Costo: ${costoservicio}")
+        print(f"Total a pagar: ${nota_encontrada.total_nota()}")
+    else:
+        print("La nota no se encuentra en el sistema o fue cancelada.")
+
+if __name__ == "__main__":
+    while True:
+        print("\nMenú Principal:")
+        print("1. Crear una nota")
+        print("2. Consultas y Reportes")
+        print("3. Salir")
+
+        opcion_menu = input("Seleccione una opción: ")
+
+        if opcion_menu == "1":
+            CrearNota()
+        elif opcion_menu == "2":
+            while True:
+                print("\nSubMenu :")
+                print("1. Consultar nota por fecha")
+                print("2. Consultar nota por folio")
+                print("3. Volver al menú principal")
+
+                opcion_submenu = input("Seleccione una opción: ")
+
+                if opcion_submenu == "1":
+                    consultar_por_fecha(listanotas)
+                elif opcion_submenu == "2":
+                    consultar_por_folio(listanotas)
+                elif opcion_submenu == "3":
+                    break
+                else:
+                    print("Opción no válida.")
+        elif opcion_menu == "3":
+            break
+        else:
+            print("Opción no válida.")
