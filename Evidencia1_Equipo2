@@ -1,0 +1,70 @@
+import datetime
+
+class RegistroNota:
+    def __init__(self, nombrecliente, folio, fechanota):
+        self.folio = folio
+        self.fecha = fechanota
+        self.nombrecliente = nombrecliente
+        self.servicios = {}
+        self.cancelada = False
+
+    def agregar_servicio(self, nombreservicio, costoservicio):
+        if costoservicio < 0:
+            print('El costo del servicio debería ser mayor que 0')
+            return
+        self.servicios[nombreservicio] = costoservicio
+
+    def total_nota(self):
+        total_nota = sum(self.servicios.values())
+        return total_nota
+
+listanotas = []
+NotasCanceladas = []
+
+def CrearNota():
+    folio = 1
+    while True:
+        try:
+            nombrecliente = input("Ingrese el nombre del cliente a almacenar (o escriba 'S' para salir): ")
+            if nombrecliente.upper() == 'S':
+                break
+            elif nombrecliente.isdigit():
+                print("Intente de nuevo, usted ha ingresado números en vez de letras.")
+            else:
+                print(f"Nombre del cliente almacenado: {nombrecliente}")
+                
+                while True:
+                    fechanota= input("Ingrese la fecha de la nota (DD-MM-AAAA): ")
+                    fechanota = datetime.datetime.strptime(fechanota, "%d-%m-%Y").date()
+                    if fechanota > datetime.date.today():
+                        print("La fecha ingresada no es válida")
+                    else:
+                        break
+                        
+
+                notacreada = RegistroNota(nombrecliente, folio, fechanota)
+
+                while True:
+                    nombreservicio = input("Ingrese el nombre del servicio: ")
+                    costoservicio = float(input("Ingrese el costo del servicio: "))
+                    notacreada.agregar_servicio(nombreservicio, costoservicio)
+
+                    otroservicio = input("¿Desea agregar otro servicio? (SI/NO): ")
+                    if otroservicio.upper() != "SI":
+                        break
+                listanotas.append(notacreada)
+                folio += 1
+
+        except KeyboardInterrupt:
+            print("\nUsted ha decidido interrumpir el programa")
+            break
+
+    for notacreada in listanotas:
+        print(f"\nNota:")
+        print(f"Folio: {notacreada.folio}")
+        print(f"Fecha: {notacreada.fecha}")
+        print(f"Nombre del cliente: {notacreada.nombrecliente}")
+        print(f"Servicios realizados:")
+        for nombreservicio, costoservicio in notacreada.servicios.items():
+            print(f"Servicio: {nombreservicio}\t Costo: ${costoservicio}")
+        print(f"Total a pagar: $ {notacreada.total_nota()}")
