@@ -111,6 +111,45 @@ def consultar_por_folio(notas):
     else:
         print("La nota no se encuentra en el sistema o fue cancelada.")
 
+def CancelarNota(listanotas):
+    try:
+        folioCancelar = input("Ingrese el folio de la nota que desea cancelar o escriba 'S' para salir: ").strip()
+        if folioCancelar.upper() == 'S':
+            print("Saliendo del servicio CancelarNota.")
+            return
+
+        folioCancelar = int(folioCancelar)
+        notaBuscada = next((nota for nota in listanotas if nota.folio == folioCancelar), None)
+
+        if notaBuscada:
+            if notaBuscada.cancelada:
+                print("La nota ya ha sido cancelada.")
+            else:
+                print("\nDetalles de la nota a cancelar:")
+                print(f"Folio: {notaBuscada.folio}")
+                print(f"Fecha: {notaBuscada.fecha}")
+                print(f"Nombre del cliente: {notaBuscada.nombrecliente}")
+                print("Servicios realizados:")
+                for nombreservicio, costoservicio in notaBuscada.servicios.items():
+                    print(f"Servicio: {nombreservicio}\t Costo: ${costoservicio}")
+                print(f"Total a pagar: $ {notaBuscada.total_nota()}")
+                confirmacion = input("¿Desea cancelar esta nota? (SI/NO): ").strip().upper()
+                if confirmacion == "SI":
+                    notaBuscada.cancelada = True
+                    print("Nota cancelada éxitosamente.")
+                    listanotas.pop(listanotas.index(notaBuscada))
+                    NotasCanceladas.append(notaBuscada)
+                else:
+                    print("La nota no ha sido cancelada.")
+        else:
+            print("El folio no se encuentra en el sistema.")
+
+    except ValueError:
+        print("Ingrese un número de folio válido.")
+
+
+
+
 if __name__ == "__main__":
     while True:
         print("\nMenú Principal:")
