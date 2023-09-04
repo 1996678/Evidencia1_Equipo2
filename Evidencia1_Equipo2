@@ -159,7 +159,7 @@ def recuperar_nota(NotasCanceladas, listanotas):
             return
 
         print("Folio de las Notas canceladas:")
-        print("Folio\tFecha\t\tNombre del Cliente")
+        print("Folios")
         for nota in NotasCanceladas:
             print(f"{nota.folio}")
 
