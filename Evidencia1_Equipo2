@@ -157,10 +157,10 @@ def recuperar_nota(NotasCanceladas, listanotas):
             print("No hay notas canceladas para recuperar")
             return
 
-        print("Notas canceladas:")
+        print("Folio de las Notas canceladas:")
         print("Folio\tFecha\t\tNombre del Cliente")
         for nota in NotasCanceladas:
-            print(f"{nota.folio}\t{nota.fecha}\t{nota.nombrecliente}")
+            print(f"{nota.folio}")
 
         folio_recuperar = input("Ingrese el folio de la nota que desea recuperar o 'S' para salir: ").strip()
 
