@@ -23,9 +23,11 @@ listanotas = []
 NotasCanceladas = []
 
 def CrearNota():
-    folio = 1
+    foliomax = max([nota.folio for nota in listanotas]+[0])
+
     while True:
         try:
+            folio=foliomax+1
             nombrecliente = input("Ingrese el nombre del cliente a almacenar (o escriba 'S' para salir): ")
             if nombrecliente.upper() == 'S':
                 break
@@ -33,7 +35,7 @@ def CrearNota():
                 print("Intente de nuevo, usted ha ingresado números en vez de letras.")
             else:
                 print(f"Nombre del cliente almacenado: {nombrecliente}")
-                
+
                 while True:
                     fechanota= input("Ingrese la fecha de la nota (DD-MM-AAAA): ")
                     fechanota = datetime.datetime.strptime(fechanota, "%d-%m-%Y").date()
@@ -41,7 +43,6 @@ def CrearNota():
                         print("La fecha ingresada no es válida")
                     else:
                         break
-                        
 
                 notacreada = RegistroNota(nombrecliente, folio, fechanota)
 
@@ -54,7 +55,7 @@ def CrearNota():
                     if otroservicio.upper() != "SI":
                         break
                 listanotas.append(notacreada)
-                folio += 1
+                foliomax=folio
 
         except KeyboardInterrupt:
             print("\nUsted ha decidido interrumpir el programa")
