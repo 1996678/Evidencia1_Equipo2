@@ -9,10 +9,13 @@ class RegistroNota:
         self.cancelada = False
 
     def agregar_servicio(self, nombreservicio, costoservicio):
-        if costoservicio < 0:
-            print('El costo del servicio debería ser mayor que 0')
-            return
-        self.servicios[nombreservicio] = costoservicio
+        while True:
+            if costoservicio <= 0:
+                print('El costo del servicio debería ser mayor que 0')
+                costoservicio = float(input("Ingrese el costo del servicio otra vez: "))
+            else:
+                self.servicios[nombreservicio] = costoservicio
+                break
 
     def total_nota(self):
         total_nota = sum(self.servicios.values())
